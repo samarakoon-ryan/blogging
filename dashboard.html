@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Login & Registration</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <h3>Welcome, {{user_data['first_name']}}!</h3>
+            <a href="/logout" class="btn btn-primary">Logout</a>
+        </nav>
+        <div class="row">
+            <div class="col">
+                <form action="/user_tweet" class="tweet_box" method="POST">
+                    <div>
+                        <textarea name="tweet_content" cols="40" rows="5" placeholder="Your tweet here..."></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Tweet!">
+                </form>
+                {% with messages = get_flashed_messages() %}    
+                    {% if messages %}                           
+                        {% for message in messages %}            
+                            <p>{{message}}</p>                
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                {% for tweet in tweets %}
+                    <h4>{{tweet['first_name']}} {{tweet['last_name']}} says:</h4>
+                    <p>{{tweet['content']}}</p>
+                    {% if session['user_id'] == tweet['author']%}
+                        <a href="/on_edit/{{tweet['id']}}" class="btn btn-primary">Edit</a>
+                        <a href="/on_delete/{{tweet['id']}}" class="btn btn-primary">Delete</a>
+                    {% endif %}
+                    {% if tweet['id'] in l_t_i %}
+                        <a href="/unlike/{{tweet['id']}}" class="btn btn-primary">Unlike</a>
+                    {% else %}
+                        <a href="/like/{{tweet['id']}}" class="btn btn-primary">Like</a>
+                    {% endif %}
+                    <a href="/details/{{tweet['id']}}" class="btn btn-primary">Details</a>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
