@@ -10,10 +10,16 @@ This app uses:
 
 Instructions & Dependencies:
 
-Bcrypt - `pip install bcrypt`
+Bcrypt - `pip install flask-bcrypt`
 
 Flask - `pip install Flask`
 
 PyMySQL - `pip install PyMySQL`
 
 Create a /templates directory and make sure all html files are located in it.
+
+Install MySQL server using homebrew - `brew install mysql`
+
+Install MySQL workbench https://dev.mysql.com/downloads/workbench/#downloads
+
+
