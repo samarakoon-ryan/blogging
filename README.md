@@ -1,4 +1,8 @@
-# example
-Simple login/registration app with ability to make posts and have users like posts.
+# Blogging App
 
-Easy Bootstrap classes were used to neatly organize the app & Flask was used to create the routes.
+Simple blog app that allows users to create a login and post 255 character messages.
+
+This app uses:
+
+-Front-end: HTML, Bootstrap, Javascript
+-Back-end & Database: Python, Flask, & MySQL
